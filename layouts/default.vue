@@ -1,15 +1,17 @@
 <template>
-  <div>
+  <simplebar class="simplebar-fullscreen">
+    <h1>DEFAULT</h1>
     <nuxt/>
     <app-cursor ref="cursor"/>
-  </div>
+  </simplebar>
 </template>
 
 <script>
 import AppCursor from '@/components/AppCursor'
+import simplebar from 'simplebar-vue';
 
 export default {
-  components: {AppCursor},
+  components: {AppCursor, simplebar},
 
   provide () {
     return {
@@ -37,11 +39,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
 }
 
 .button--green {
