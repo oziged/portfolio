@@ -1,6 +1,5 @@
 <template>
-  <simplebar class="simplebar-fullscreen">
-    <h1>DEFAULT</h1>
+  <simplebar class="simplebar-fullscreen" style="color: white">
     <nuxt/>
     <app-cursor ref="cursor"/>
   </simplebar>
@@ -16,6 +15,13 @@ export default {
   provide () {
     return {
       updateCursor: this.updateCursor
+    }
+  },
+
+
+  computed: {
+    isRouteHome() {
+      return this.$route.name
     }
   },
 

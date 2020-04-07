@@ -54,10 +54,11 @@ export default {
     },
 
     animate() {
+      if (!this.$refs.canvas) return
       this.handleResize()
       this.uniforms.uTime.value += .01 * this.uTimeScale
-      this.renderer.render( this.scene, this.camera );
-      requestAnimationFrame( this.animate );
+      this.renderer.render(this.scene, this.camera);
+      requestAnimationFrame(this.animate);
     },
 
     handleResize() {
@@ -82,6 +83,6 @@ export default {
 
 <style lang="scss">
   .webgl-bg {
-    filter: hue-rotate(50deg);
+    filter: hue-rotate(50deg) grayscale(.7);
   }
 </style>

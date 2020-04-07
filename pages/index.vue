@@ -1,5 +1,5 @@
 <template>
-  <section class="section start">
+  <section class="section start" @mousedown="animatePageLeave" @mouseup="animatePageEnter">
     <div class="container start__container">
       <div class="start__text">
         <h1 class="sliding-text start__text-title">
@@ -15,12 +15,22 @@
             </span>
           </span>
         </h1>
-        <h2 class="start__text-desc">Front-end Developer</h2>
+        <h2 class="start__text-desc">Front - end Developer</h2>
       </div>
     </div>
 
-    <WebGLBackground class="start__background"/>
-    <div class="start__background-overlay"></div>
+    <h4 class="start__bottom-text">
+      <span
+        class="start__bottom-text-char"
+        v-for="(item, index) in bottomText" :key="index"
+      >
+        {{ item.char }}
+      </span>
+    </h4>
+
+    <WebGLBackground class="start__bg" :uTimeScale="bgSpeed"/>
+    <div class="bg-overlay"></div>
+    <div class="fr-overlay"></div>
   </section>
 </template>
 
@@ -29,7 +39,6 @@ import gsap from 'gsap'
 import WebGLBackground from '@/components/index/WebGLBackground'
 
 export default {
-  layout: 'clear',
   inject: ['updateCursor'],
   components: {WebGLBackground},
 
@@ -37,19 +46,48 @@ export default {
   data() {
     return {
       title: this.prepareString('EUGENE DEREVYANKO'),
+      bottomText: this.prepareString('click & hold'),
+      bgSpeed: 1, // speed scale of webGL background
+      startAnimateIsLoaded: false,
+      anim: {
+        bottomText: {
+          TL: gsap.timeline({paused: true, defaults: {ease: 'power1.inOut'}})
+        },
+        leave: {
+          duration: 2,
+          TL: null
+        }
+      }
     }
   },
 
 
   mounted() {
-    console.log(this.name)
+    this.fillTimelines()
+
+    setInterval(() => {
+      this.anim.bottomText.TL.play(0)
+    }, 3000);
+
+    this.anim.leave.TL.progress(1)
+    this.anim.leave.TL.reverse()
+    this.startAnimateIsLoaded = true
+  },
+
+
+  beforeRouteLeave (to, from, next) {
+    console.log(to.params)
+    if (to.params.instantly) next()
+    else {
+      this.anim.leave.TL.play()
+      setTimeout(() => {
+        next()
+      }, this.anim.leave.duration * 1000);
+    }
   },
 
 
   methods: {
-    charMouseEnter(event) {
-    },
-
     charMouseLeave(event, obj) {
       if (obj.animating) return
       const rect = event.target.getBoundingClientRect()
@@ -63,6 +101,43 @@ export default {
 
     prepareString(str) {
       return str.split('').map(char => ({char, animating: false}))
+    },
+
+    animatePageEnter() {
+      this.anim.leave.TL.reverse()
+    },
+
+    animatePageLeave() {
+      this.anim.leave.TL.play()
+    },
+
+    fillTimelines() {
+      this.anim.leave.TL = gsap.timeline(
+        {
+          paused: true,
+          defaults: {duration: this.anim.leave.duration, ease: 'power3.inOut'},
+          onComplete: () => {
+            if (this.startAnimateIsLoaded) {
+              this.$router.push({name: 'about', params: {instantly: true}})
+            }},
+        })
+
+      this.anim.bottomText.TL
+        .to('.start__bottom-text-char', {y: -5, duration: .5, stagger: .025})
+        .to('.start__bottom-text-char', {y: 0, duration: .5, stagger: .025}, .5)
+
+      this.anim.leave.TL
+        .set('.cursor__circle', {clearProps: 'transition'}, 0)
+        .set('.cursor__circle', {transition: 0}, .3)
+        .to(this, {bgSpeed: 100}, 0)
+        .to('.start__text-title', {letterSpacing: '.3rem'}, 0)
+        .to('.start__text-desc', {letterSpacing: '.2rem'}, 0)
+        .to('.start__bottom-text', {letterSpacing: '.3rem'}, 0)
+        .to('.cursor__circle', {scale: 0 }, 0)
+        .to('.bg-overlay', {opacity: 1}, 0)
+        .to('.fr-overlay', {opacity: 1}, 0)
+        .set('.cursor__circle', {transition: 0}, 2)
+        .set('.cursor__circle', {clearProps: 'transition'}, 2)
     }
   },
 }
@@ -82,7 +157,7 @@ export default {
     align-items: center;
   }
 
-  .start__background {
+  .start__bg {
     position: fixed;
     left: 0;
     top: 0;
@@ -91,15 +166,24 @@ export default {
     height: 100%;
   }
 
-  .start__background-overlay {
+  .bg-overlay, .fr-overlay {
     position: fixed;
+    pointer-events: none;
     left: 0;
     top: 0;
-    z-index: -1;
     width: 100%;
     height: 100%;
     background-color: black;
-    opacity: .7;
+  }
+
+  .bg-overlay {
+    z-index: -1;
+    opacity: .8;
+  }
+
+  .fr-overlay {
+    z-index: 1;
+    opacity: 0;
   }
 
   .start__text {
@@ -109,6 +193,7 @@ export default {
   .start__text-title {
     font-family: 'Playfair Display', serif;
     letter-spacing: .1rem;
+    font-size: 3rem;
   }
 
   .start__text-desc {
@@ -117,8 +202,23 @@ export default {
     text-align: center;
   }
 
+  .start__bottom-text {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    color: white;
+    transform: translateX(-50%);
+  }
+
+  .start__bottom-text-char {
+    min-width: .5rem;
+    display: inline-block;
+    text-align: center;
+  }
+
   .sliding-text {
-    font-size: 3rem;
     * {
       display: inline-block;
     }

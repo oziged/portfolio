@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div @click="$router.push({
+    path: '/'
+})" style="color: white">123</div>
 </template>
 
 <script>

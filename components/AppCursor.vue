@@ -1,10 +1,10 @@
 <template>
-  <div class="app-cursor">
-    <div class="cursor-point">
+  <div class="cursor">
+    <div class="cursor__point">
     </div>
-    <div class="cursor-circle-container">
-      <div :class="{'cursor-circle': true, 'cursor-circle-small': cursor_circle_small}"></div>
-      <div :class="{'pulse-circle': true, pulsing}" ref="pulse-circle"></div>
+    <div class="cursor__circle-container">
+      <div :class="{'cursor__circle': true, 'cursor__circle_small': cursor_circle_small}"></div>
+      <div :class="{'pulse__circle': true, pulsing}" ref="pulse__circle"></div>
     </div>
   </div>
 </template>
@@ -49,8 +49,8 @@ export default {
       this.interval = setInterval(() => {
         this.delayedX += (this.clientX-this.delayedX)/10
         this.delayedY += (this.clientY-this.delayedY)/10
-        gsap.set('.cursor-point', {x: this.clientX-2.5, y: this.clientY-2.5})
-        gsap.set('.cursor-circle-container', {x: this.delayedX-15, y: this.delayedY-15})
+        gsap.set('.cursor__point', {x: this.clientX-2.5, y: this.clientY-2.5})
+        gsap.set('.cursor__circle-container', {x: this.delayedX-15, y: this.delayedY-15})
         if (Math.abs(this.clientX-this.delayedX) < .1 && Math.abs(this.clientY-this.delayedY < .001)) this.disableInterval()
       }, 10)
     },
@@ -69,21 +69,22 @@ export default {
     },
 
     createSinglePulse() {
-      gsap.set(this.$refs['pulse-circle'], {animation: 'freeze'})
-      gsap.fromTo(this.$refs['pulse-circle'], {scale: 0, opacity: 1}, {scale: 2.5, opacity: 0, duration: 1.5, ease: 'power3.out', clearProps: 'all'})
+      gsap.set(this.$refs['pulse__circle'], {animation: 'freeze'})
+      gsap.fromTo(this.$refs['pulse__circle'], {scale: 0, opacity: 1}, {scale: 2.5, opacity: 0, duration: 1.5, ease: 'power3.out', clearProps: 'all'})
     }
   },
 }
 </script>
 
-<style lang="scss" scoped>
-  .app-cursor {
+<style lang="scss">
+  .cursor {
     pointer-events: none;
     position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
     mix-blend-mode: difference;
-    .cursor-point {
+    .cursor__point {
       position: absolute;
       left: 0;
       top: 0;
@@ -93,14 +94,14 @@ export default {
       background-color: white;
       will-change: transform;
     }
-    .cursor-circle-container {
+    .cursor__circle-container {
       position: absolute;
       left: 0;
       top: 0;
       width: 30px;
       height: 30px;
       will-change: transform;
-      .cursor-circle {
+      .cursor__circle {
         width: 100%;
         height: 100%;
         border: 1.5px solid rgba(255, 255, 255, 0.5);
@@ -111,10 +112,10 @@ export default {
         transition: .3s ease-out;
         transition-delay: .05s;
       }
-      .cursor-circle-small {
+      .cursor__circle_small {
         transform: scale(.7);
       }
-      .pulse-circle {
+      .pulse__circle {
         width: 100%;
         height: 100%;
         border-radius: 50%;
