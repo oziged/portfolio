@@ -1,34 +1,48 @@
 <template>
   <simplebar class="simplebar-fullscreen" style="color: white">
     <nuxt/>
+    <app-header/>
     <app-cursor ref="cursor"/>
+    <app-menu ref="menu"/>
   </simplebar>
 </template>
 
 <script>
 import AppCursor from '@/components/AppCursor'
+import AppHeader from '@/components/AppHeader'
+import AppMenu from '@/components/AppMenu/AppMenu'
 import simplebar from 'simplebar-vue';
 
 export default {
-  components: {AppCursor, simplebar},
+  components: {AppCursor, AppHeader, AppMenu, simplebar},
 
-  provide () {
+
+  data() {
     return {
-      updateCursor: this.updateCursor
+
     }
   },
 
 
-  computed: {
-    isRouteHome() {
-      return this.$route.name
+  provide () {
+    return {
+      updateCursor: this.updateCursor,
+      updateMenu: this.updateMenu
     }
+  },
+
+
+  mounted() {
   },
 
 
   methods: {
     updateCursor(type, payload) {
       this.$refs.cursor[type]()
+    },
+
+    updateMenu(type) {
+      this.$refs.menu[type]()
     }
   },
 }

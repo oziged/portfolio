@@ -118,7 +118,7 @@ export default {
           defaults: {duration: this.anim.leave.duration, ease: 'power3.inOut'},
           onComplete: () => {
             if (this.startAnimateIsLoaded) {
-              this.$router.push({name: 'about', params: {instantly: true}})
+              this.$router.push({name: 'works', params: {instantly: true}})
             }},
         })
 

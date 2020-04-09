@@ -51,7 +51,7 @@ export default {
         this.delayedY += (this.clientY-this.delayedY)/10
         gsap.set('.cursor__point', {x: this.clientX-2.5, y: this.clientY-2.5})
         gsap.set('.cursor__circle-container', {x: this.delayedX-15, y: this.delayedY-15})
-        if (Math.abs(this.clientX-this.delayedX) < .1 && Math.abs(this.clientY-this.delayedY < .001)) this.disableInterval()
+        if (Math.abs(this.clientX-this.delayedX) < .001 && Math.abs(this.clientY-this.delayedY < .001)) this.disableInterval()
       }, 10)
     },
 

@@ -1,4 +1,5 @@
 @import 'simplebar/dist/simplebar.min.css';
+@import './transitions.scss';
 
 html, body {
   width: 100%;
@@ -9,6 +10,11 @@ html, body {
 * {
   box-sizing: border-box;
   margin: 0;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 .section, .container {
