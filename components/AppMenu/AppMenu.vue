@@ -62,8 +62,9 @@ export default {
         .set('.app-menu', {autoAlpha: 1})
         .to('.app-menu__transition-layer-r', {y: 0, rotate: 0,  ease: 'power3.inOut'}, 0)
         .to('.app-menu__transition-layer-l', {y: 0, rotate: 0, ease: 'power3.inOut'}, .3)
+        .from('.app-menu__content-layer', {autoAlpha: 0, duration: .01})
         .set(transitionLayers, {autoAlpha: 0})
-        .from('.app-menu__nav-item', {y: 100, letterSpacing: '15px', autoAlpha: 0, stagger: .2, })
+        .from('.app-menu__nav-item', {y: 100, letterSpacing: '15px', autoAlpha: 0, stagger: .2})
     },
 
     menuMouseMove(event) {
@@ -119,6 +120,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: black;
   }
 
   .app-menu__nav-list {

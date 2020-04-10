@@ -7,7 +7,7 @@
         ref="burger"
         @mouseenter="burgerMouseEnter"
         @mouseleave="burgerMouseLeave"
-        @click="openMenu"
+        @click="toggleMenu"
       >
         <span class="burger__line line-anim"></span>
         <span class="burger__line"></span>
@@ -55,14 +55,14 @@ export default {
       gsap.to('.line-anim', {width: 35, ease: 'power3.out', stagger: .1})
     },
 
-    openMenu() {
+    toggleMenu() {
       if (!this.menuIsOpened) {
         this.menuIsOpened = true
         gsap.to('.line-anim', {x: '300%', autoAlpha: 0, ease: 'power3.inOut'})
         this.updateMenu('openMenu')
       } else {
         this.menuIsOpened = false
-        gsap.to('.line-anim', {x: '0', autoAlpha: 1, ease: 'power3.inOut', clearProps: 'all'})
+        gsap.to('.line-anim', {x: '0', autoAlpha: 1, ease: 'power3.inOut'})
         this.updateMenu('closeMenu')
       }
     }
