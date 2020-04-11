@@ -19,7 +19,6 @@ export default {
 
   data() {
     return {
-
     }
   },
 
@@ -32,13 +31,9 @@ export default {
   },
 
 
-  mounted() {
-  },
-
-
   methods: {
-    updateCursor(type, payload) {
-      this.$refs.cursor[type]()
+    updateCursor() {
+      [].forEach.call(arguments, name => this.$refs.cursor[name]())
     },
 
     updateMenu(type) {

@@ -93,10 +93,12 @@ export default {
 
     openMenu() {
       this.anim.reveal.TL.timeScale(1).play()
+      this.$store.commit('global/SET_STATE', {key: 'menuIsOpened', value: true})
     },
 
     closeMenu() {
       this.anim.reveal.TL.timeScale(1.5).reverse()
+      this.$store.commit('global/SET_STATE', {key: 'menuIsOpened', value: false})
     }
   },
 }
@@ -104,11 +106,10 @@ export default {
 
 <style lang="scss" scoped>
   .app-menu {
-    width: 100%;
-    height: 100%;
-    position: fixed;
     opacity: 0;
     visibility: hidden;
+    position: fixed;
+    z-index: 999;
   }
 
   .app-menu__content-layer {
@@ -126,6 +127,7 @@ export default {
   .app-menu__nav-list {
     display: flex;
     font-family: 'Merriweather', serif;
+    font-weight: 700;
     text-transform: uppercase;
     flex-direction: column;
     justify-content: center;

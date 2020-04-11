@@ -1,10 +1,12 @@
 <template>
-  <div class="cursor">
-    <div class="cursor__point">
+  <div ref="cursor" :class="{cursor: true, hidden: cursorFullIsHidden}">
+    <div class="cursor__point-container">
+      <div class="cursor__point" ref="cursor-point">
+    </div>
     </div>
     <div class="cursor__circle-container">
-      <div :class="{'cursor__circle': true, 'cursor__circle_small': cursor_circle_small}"></div>
-      <div :class="{'pulse__circle': true, pulsing}" ref="pulse__circle"></div>
+      <div :class="{'cursor__circle': true, 'cursor__circle_small': cursor_circle_small, hidden: cursorCircleIsHidden}" ref="cursor-circle"></div>
+      <div :class="{'pulse__circle': true, pulsing}" ref="pulse-circle"></div>
     </div>
   </div>
 </template>
@@ -22,7 +24,9 @@ export default {
       delayedX: 0,
       delayedY: 0,
       pulsing: false,
-      cursor_circle_small: false
+      cursor_circle_small: false,
+      cursorCircleIsHidden: false,
+      cursorFullIsHidden: false
     }
   },
 
@@ -49,7 +53,7 @@ export default {
       this.interval = setInterval(() => {
         this.delayedX += (this.clientX-this.delayedX)/10
         this.delayedY += (this.clientY-this.delayedY)/10
-        gsap.set('.cursor__point', {x: this.clientX-2.5, y: this.clientY-2.5})
+        gsap.set('.cursor__point-container', {x: this.clientX, y: this.clientY})
         gsap.set('.cursor__circle-container', {x: this.delayedX-15, y: this.delayedY-15})
         if (Math.abs(this.clientX-this.delayedX) < .001 && Math.abs(this.clientY-this.delayedY < .001)) this.disableInterval()
       }, 10)
@@ -68,9 +72,33 @@ export default {
       this.pulsing = false
     },
 
+    enableCircle() {
+      this.cursorCircleIsHidden = false
+    },
+
+    disableCircle() {
+      this.cursorCircleIsHidden = true
+    },
+
+    enableFullCursor() {
+      this.cursorFullIsHidden = false
+    },
+
+    disableFullCursor() {
+      this.cursorFullIsHidden = true
+    },
+
+    scalePoint() {
+      gsap.to(this.$refs['cursor-point'], {scale: 2})
+    },
+
+    unScalePoint() {
+      gsap.to(this.$refs['cursor-point'], {scale: 1})
+    },
+
     createSinglePulse() {
-      gsap.set(this.$refs['pulse__circle'], {animation: 'freeze'})
-      gsap.fromTo(this.$refs['pulse__circle'], {scale: 0, opacity: 1}, {scale: 2.5, opacity: 0, duration: 1.5, ease: 'power3.out', clearProps: 'all'})
+      gsap.set(this.$refs['pulse-circle'], {animation: 'freeze'})
+      gsap.fromTo(this.$refs['pulse-circle'], {scale: 0, opacity: 1}, {scale: 2.5, opacity: 0, duration: 1.5, ease: 'power3.out', clearProps: 'all'})
     }
   },
 }
@@ -84,15 +112,22 @@ export default {
     left: 0;
     top: 0;
     mix-blend-mode: difference;
-    .cursor__point {
+    transition: .3s;
+    .cursor__point-container {
       position: absolute;
       left: 0;
       top: 0;
+      will-change: transform;
+    }
+    .cursor__point {
+      position: absolute;
+      left: 50%;
+      top: 50%;
       width: 5px;
       height: 5px;
       border-radius: 50%;
       background-color: white;
-      will-change: transform;
+      transform: translate(-50%, -50%);
     }
     .cursor__circle-container {
       position: absolute;

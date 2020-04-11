@@ -76,7 +76,6 @@ export default {
 
 
   beforeRouteLeave (to, from, next) {
-    console.log(to.params)
     if (to.params.instantly) next()
     else {
       this.anim.leave.TL.play()
