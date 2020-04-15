@@ -110,7 +110,6 @@ export default {
     //     next()
     //   }, this.anim.leave.duration * 1000);
     // }
-      this.updateMenu('closeMenu')
       await gsap.to('.works', {scale: .5, autoAlpha: 0, ease: 'power3.inOut', duration: 1.5})
       next()
   },
@@ -237,6 +236,7 @@ export default {
 
   .works__container {
     position: relative;
+    height: 100%;
   }
 
   .works__slider-image {

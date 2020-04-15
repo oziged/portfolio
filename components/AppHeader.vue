@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <header v-if="headerIsVisible && firstMount" class="app-header">
+    <header v-if="headerIsVisible && firstMount" class="app-header container">
       <div class="logo-text">drvnk.</div>
       <div
         class="burger"
@@ -78,7 +78,7 @@ export default {
     transform: translate(-50%);
     width: 100vw;
     margin-top: 3rem;
-    max-width: 1720px;
+    // max-width: 1720px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -106,8 +106,8 @@ export default {
 
   @media (max-width: 1800px) {
     .app-header {
-      max-width: 100%;
-      padding: 0 5rem;
+      // max-width: 100%;
+      // padding: 0 5rem;
     }
   }
 </style>

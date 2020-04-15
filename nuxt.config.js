@@ -25,7 +25,8 @@ module.exports = {
   ** Build configuration
   */
   plugins: [
-    // { src: '~plugins/vue-three.js', mode: 'client' },
+    { src: '~plugins/directives/onAppear.js', mode: 'client' },
+    { src: '~plugins/smoothScrollbar.js', mode: 'client'}
   ],
   build: {
     /*

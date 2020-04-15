@@ -18,13 +18,11 @@ a {
 }
 
 .section, .container {
-  height: 100%;
 }
 
 .container {
-  max-width: 1920px;
+  max-width: 1720px;
   margin: 0 auto;
-  padding: 0 5rem;
 }
 
 .simplebar-fullscreen {
@@ -33,4 +31,21 @@ a {
 
 .hidden {
   opacity: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.a {
+  &_underlined {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 1800px) {
+  .container {
+    max-width: 100%;
+    padding: 0 5rem;
+  }
 }

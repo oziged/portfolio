@@ -6,9 +6,9 @@
           <span class="sliding-text__char-wrapper"
             v-for="(item, index) in title"
             :key="index"
-            @mouseleave="event => charMouseLeave(event, title[index])"
+            @mouseleave="charMouseLeave($event, title[index])"
           >
-            <span class="sliding-text__char-container">
+            <span class="sliding-text__char-container" ref="char-container">
               {{ item.char }}
               <span class="sliding-text__char-sub sliding-text__char-sub_left">{{ item.char }}</span>
               <span class="sliding-text__char-sub sliding-text__char-sub_right">{{ item.char }}</span>
@@ -94,8 +94,7 @@ export default {
 
       obj.animating = true
       let container = event.target.querySelector('.sliding-text__char-container')
-      if (direction == 'right') gsap.to(container, {x: '120%', duration: 1, ease: 'power3.inOut', clearProps: 'all', onComplete: () => obj.animating = false})
-      if (direction == 'left') gsap.to(container, {x: '-120%', duration: 1, ease: 'power3.inOut', clearProps: 'all', onComplete: () => obj.animating = false})
+      gsap.to(container, {x: direction == 'right' ? '120%' : '-120%', duration: 1, ease: 'power3.inOut', clearProps: 'all', onComplete: () => obj.animating = false})
     },
 
     prepareString(str) {

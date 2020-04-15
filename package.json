@@ -14,11 +14,15 @@
   },
   "dependencies": {
     "gsap": "^3.2.6",
+    "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "simplebar-vue": "^1.4.0",
     "three": "^0.115.0",
+    "vue-custom-scrollbar": "^1.1.0",
     "vue-displacement-slideshow": "^2.3.1",
-    "vue-window-size": "^0.2.5"
+    "vue-smooth-scrollbar": "^0.1.2",
+    "vue-window-size": "^0.2.5",
+    "vuebar": "0.0.20"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

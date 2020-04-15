@@ -10,6 +10,7 @@
           class="app-menu__nav-item"
           @mouseenter.native="navItemMouseEnter"
           @mouseleave.native="navItemMouseLeave"
+          @click.native="closeMenu"
         >
           {{ item.name }}
           <span class="app-menu__nav-item-subtext">{{ item.name }}</span>
