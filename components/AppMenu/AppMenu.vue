@@ -28,6 +28,7 @@ import { vueWindowSizeMixin } from 'vue-window-size'
 
 export default {
   mixins: [vueWindowSizeMixin],
+  inject: ['updateCursor'],
 
   data() {
     return {
@@ -87,10 +88,14 @@ export default {
 
     navItemMouseEnter(event) {
       gsap.to(event.target.querySelector('.app-menu__nav-item-subtext'), {width: '100%', duration: 1, ease: 'power3.inOut'})
+      this.updateCursor('enableRedEffect')
+      this.updateCursor('disableCircle')
     },
 
     navItemMouseLeave(event) {
       gsap.to(event.target.querySelector('.app-menu__nav-item-subtext'), {width: '0', duration: 1, ease: 'power3.inOut'})
+      this.updateCursor('disableRedEffect')
+      this.updateCursor('enableCircle')
     },
 
     openMenu() {

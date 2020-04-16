@@ -1,7 +1,7 @@
 <template>
   <div ref="cursor" :class="{cursor: true, hidden: cursorFullIsHidden}">
     <div class="cursor__point-container">
-      <div class="cursor__point" ref="cursor-point">
+      <div :class="{cursor__point: true, cursor__point_red: cursorPointRed}" ref="cursor-point">
     </div>
     </div>
     <div class="cursor__circle-container">
@@ -26,7 +26,8 @@ export default {
       pulsing: false,
       cursor_circle_small: false,
       cursorCircleIsHidden: false,
-      cursorFullIsHidden: false
+      cursorFullIsHidden: false,
+      cursorPointRed: false
     }
   },
 
@@ -37,8 +38,7 @@ export default {
 
   watch: {
     '$route.path': function() {
-      console.log(gsap.getProperty(this.$refs['cursor-circle'], 'scale'))
-      // console.log(this.$refs['cursor-circle']._gsTransform.scaleX)
+      if (gsap.getProperty(this.$refs['cursor-circle'], 'scale') == 0) gsap.to(this.$refs['cursor-circle'], {scale: 1, clearProps: 'all', ease: 'power3.inOut'})
     }
   },
 
@@ -103,6 +103,14 @@ export default {
       gsap.to(this.$refs['cursor-point'], {scale: 1})
     },
 
+    enableRedEffect() {
+      this.cursorPointRed = true
+    },
+
+    disableRedEffect() {
+      this.cursorPointRed = false
+    },
+
     createSinglePulse() {
       gsap.set(this.$refs['pulse-circle'], {animation: 'freeze'})
       gsap.fromTo(this.$refs['pulse-circle'], {scale: 0, opacity: 1}, {scale: 2.5, opacity: 0, duration: 1.5, ease: 'power3.out', clearProps: 'all'})
@@ -135,6 +143,11 @@ export default {
       border-radius: 50%;
       background-color: white;
       transform: translate(-50%, -50%);
+      transition: .3s;
+      &_red {
+        background-color: #ff4e26c9;
+        transform: translate(-50%, -50%) scale(3);
+      }
     }
     .cursor__circle-container {
       position: absolute;

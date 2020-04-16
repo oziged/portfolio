@@ -9,6 +9,8 @@
             v-for="(link, key) in contactLinks"
             :key="key"
             class="contact-block__link a_underlined"
+            @mouseenter="linkMouseEnter"
+            @mouseleave="linkMouseLeave"
           >
             {{ key }}
           </a>
@@ -27,6 +29,8 @@
 import * as moment from 'moment';
 
 export default {
+  inject: ['updateCursor'],
+
   data() {
     return {
       moment: null,
@@ -79,6 +83,16 @@ export default {
       setInterval(() => {
         this.moment = moment()
       }, 20000);
+    },
+
+    linkMouseEnter() {
+      this.updateCursor('enableRedEffect')
+      this.updateCursor('disableCircle')
+    },
+
+    linkMouseLeave() {
+      this.updateCursor('disableRedEffect')
+      this.updateCursor('enableCircle')
     }
   },
 }
