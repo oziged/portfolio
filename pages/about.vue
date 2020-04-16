@@ -31,13 +31,13 @@
         />
       </div>
       <div class="about__story" ref="about-story">
-        <p class="about__story-p" ref="about-p-1" v-on-appear="() => bottomRevealTween($refs['about-p-1'])">Hi, how are you?</p>
-        <p class="about__story-p" ref="about-p-2" v-on-appear="() => bottomRevealTween($refs['about-p-2'])">I’m a multidisciplinary designer from New Zealand and currently based in Berlin, Germany.</p>
-        <p class="about__story-p" ref="about-p-3" v-on-appear="() => bottomRevealTween($refs['about-p-3'])">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-4" v-on-appear="() => bottomRevealTween($refs['about-p-4'])">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-5" v-on-appear="() => bottomRevealTween($refs['about-p-5'])">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-6" v-on-appear="() => bottomRevealTween($refs['about-p-6'])">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-7" v-on-appear="() => bottomRevealTween($refs['about-p-7'])">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-1" v-on-appear="() => bottomRevealTween($refs['about-p-1'], {duration: 2})">Hi, how are you?</p>
+        <p class="about__story-p" ref="about-p-2" v-on-appear="() => bottomRevealTween($refs['about-p-2'], {duration: 2})">I’m a multidisciplinary designer from New Zealand and currently based in Berlin, Germany.</p>
+        <p class="about__story-p" ref="about-p-3" v-on-appear="() => bottomRevealTween($refs['about-p-3'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-4" v-on-appear="() => bottomRevealTween($refs['about-p-4'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-5" v-on-appear="() => bottomRevealTween($refs['about-p-5'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-6" v-on-appear="() => bottomRevealTween($refs['about-p-6'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-7" v-on-appear="() => bottomRevealTween($refs['about-p-7'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
       </div>
     </div>
   </div>
@@ -125,13 +125,17 @@ export default {
     },
 
     bottomRevealTween(target, {...tweenParams}) {
-      return gsap.from(target, {y: 50, autoAlpha: 0, ease: 'power3.out', paused: true,  ...tweenParams})
+      return gsap.from(target, {y: 50, autoAlpha: 0, ease: 'power3.inOut', paused: true,  ...tweenParams})
     }
   },
 }
 </script>
 
 <style lang="scss">
+  .about {
+    overflow: hidden;
+  }
+
   .about__container {
     max-width: 1000px;
     padding: 0;
@@ -167,6 +171,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    .contact-block {
+      position: sticky;
+      top: 15vh;
+      left: 0;
+    }
   }
 
   .about__story {

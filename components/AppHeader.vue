@@ -78,7 +78,6 @@ export default {
     transform: translate(-50%);
     width: 100vw;
     margin-top: 3rem;
-    // max-width: 1720px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -101,13 +100,19 @@ export default {
   }
 
   .logo-text {
-    font-size: 1.5rem;
+    font-size: 30px;
   }
 
   @media (max-width: 1800px) {
     .app-header {
       // max-width: 100%;
       // padding: 0 5rem;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .logo-text {
+      font-size: 20px;
     }
   }
 </style>

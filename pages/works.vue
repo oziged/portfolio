@@ -3,6 +3,8 @@
     class="works"
     @mousewheel="worksMouseWheel"
     @mousemove="worksMouseMove"
+    @touchstart="worksTouchStart"
+    @touchend="worksTouchEnd"
   >
     <div class="container works__container">
       <div class="works__slider-image">
@@ -74,6 +76,10 @@ export default {
     return {
       currentSlide: 0,
       sliderIsAnimating: true,
+      touch: {
+        start: {x: 0, y: 0},
+        end: {x: 0, y: 0}
+      },
       projects: [
         {
           name: ['Youtube', 'Random'],
@@ -217,6 +223,29 @@ export default {
       )
     },
 
+    worksTouchStart(event) {
+      event = event.touches[0]
+      this.touch.start.x = event.clientX
+      this.touch.start.y = event.clientY
+    },
+
+    worksTouchEnd(event) {
+      event = event.changedTouches[0]
+      this.touch.end.x = event.clientX
+      this.touch.end.y = event.clientY
+
+      let diffX = this.touch.end.x - this.touch.start.x
+      let diffY = this.touch.end.y - this.touch.start.y
+
+      let biggerDiff
+
+      if (Math.abs(diffX) > Math.abs(diffY)) biggerDiff = diffX
+      else biggerDiff = diffY
+
+      if (biggerDiff < 20) this.changeSlide('next')
+      if (biggerDiff > 20) this.changeSlide('prev')
+    },
+
     discoverMouseEnter() {
       this.updateCursor('enablePulse', 'disableCircle')
     },
@@ -231,7 +260,6 @@ export default {
 <style lang="scss">
   .works {
     height: 100vh;
-    min-height: 600px;
   }
 
   .works__container {
@@ -258,6 +286,7 @@ export default {
     font-family: 'Merriweather', serif;
     line-height: 7rem;
     font-weight: 700;
+    text-align: center;
   }
 
   .works__slider-title-word {
@@ -299,7 +328,7 @@ export default {
     left: 50%;
     bottom: 8.75vh;
     transform: translate(-50%, 50%);
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-family: 'Merriweather', serif;
     font-weight: 300;
     &:before {
@@ -324,6 +353,40 @@ export default {
   @media (max-width: 1800px) {
     .works__slider-nav {
       left: 5rem;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .works__slider-nav {
+      display: none;
+    }
+
+    .works__slider-image {
+      width: 60%;
+      height: 50%;
+    }
+
+    .works__slider-title {
+      transform: translate(-50%, -50%);
+    }
+
+    .works__slider-title-word {
+      justify-content: center;
+    }
+
+    .works__slider-desc {
+      display: none;
+    }
+
+    .works__discover {
+      bottom: 17.5%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .works__slider-image {
+      width: 90%;
+      height: 50%;
     }
   }
 </style>

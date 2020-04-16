@@ -1,5 +1,10 @@
 <template>
-  <section class="section start" @mousedown="animatePageLeave" @mouseup="animatePageEnter">
+  <section class="section start"
+    @mousedown="animatePageLeave"
+    @mouseup="animatePageEnter"
+    @touchstart="animatePageLeave"
+    @touchend="animatePageEnter"
+  >
     <div class="container start__container">
       <div class="start__text">
         <h1 class="sliding-text start__text-title">
@@ -144,7 +149,7 @@ export default {
 <style lang="scss">
   .start {
     height: 100vh;
-    min-height: 600px;
+    width: 100vw;
   }
 
   .start__container {
@@ -160,8 +165,8 @@ export default {
     left: 0;
     top: 0;
     z-index: -1;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
   }
 
   .bg-overlay, .fr-overlay {
@@ -170,7 +175,7 @@ export default {
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: black;
   }
 
@@ -192,6 +197,9 @@ export default {
     font-family: 'Playfair Display', serif;
     letter-spacing: .1rem;
     font-size: 3rem;
+    width: 200%;
+    text-align: center;
+    transform: translateX(-25%);
   }
 
   .start__text-desc {

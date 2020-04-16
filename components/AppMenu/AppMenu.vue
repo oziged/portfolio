@@ -60,6 +60,7 @@ export default {
     fillTimelines() {
       const transitionLayers = document.querySelectorAll('.app-menu__transition-layer-r, .app-menu__transition-layer-l')
       this.anim.reveal.TL = gsap.timeline({defaults: {duration: this.anim.reveal.duration}, paused: true})
+        .set(transitionLayers, {clearProps: 'all'})
         .set('.app-menu', {autoAlpha: 1})
         .to('.app-menu__transition-layer-r', {y: 0, rotate: 0,  ease: 'power3.inOut'}, 0)
         .to('.app-menu__transition-layer-l', {y: 0, rotate: 0, ease: 'power3.inOut'}, .3)

@@ -35,6 +35,13 @@ export default {
     this.enableListeners()
   },
 
+  watch: {
+    '$route.path': function() {
+      console.log(gsap.getProperty(this.$refs['cursor-circle'], 'scale'))
+      // console.log(this.$refs['cursor-circle']._gsTransform.scaleX)
+    }
+  },
+
 
   methods: {
     enableListeners() {

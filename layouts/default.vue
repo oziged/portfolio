@@ -1,6 +1,6 @@
 <template>
   <simplebar class="simplebar-fullscreen" style="color: white">
-    <nuxt/>
+    <nuxt style=""/>
     <app-header/>
     <app-cursor ref="cursor"/>
     <app-menu ref="menu"/>
@@ -47,7 +47,6 @@ export default {
 html {
   cursor: none;
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
