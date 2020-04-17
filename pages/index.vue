@@ -1,5 +1,6 @@
 <template>
-  <section class="section start"
+  <section
+    class="section start"
     @mousedown="animatePageLeave"
     @mouseup="animatePageEnter"
     @touchstart="animatePageLeave"
@@ -7,7 +8,7 @@
   >
     <div class="container start__container">
       <div class="start__text">
-        <h1 class="sliding-text start__text-title">
+        <h1 class="sliding-text start__text-title" @selectstart.prevent>
           <span class="sliding-text__char-wrapper"
             v-for="(item, index) in title"
             :key="index"
@@ -33,13 +34,19 @@
       </span>
     </h4>
 
-    <WebGLBackground class="start__bg" :uTimeScale="bgSpeed"/>
+    <WebGLBackground
+      v-if="!$device.isMobile"
+      class="start__bg"
+      :uTimeScale="bgSpeed"
+    />
+
     <div class="bg-overlay"></div>
     <div class="fr-overlay"></div>
   </section>
 </template>
 
 <script>
+import {isMobile} from 'mobile-device-detect'
 import gsap from 'gsap'
 import WebGLBackground from '@/components/index/WebGLBackground'
 
@@ -50,6 +57,7 @@ export default {
 
   data() {
     return {
+      isMobile,
       title: this.prepareString('EUGENE DEREVYANKO'),
       bottomText: this.prepareString('click & hold'),
       bgSpeed: 1, // speed scale of webGL background
@@ -92,6 +100,7 @@ export default {
 
 
   methods: {
+    test(s) {console.log(s)},
     charMouseLeave(event, obj) {
       if (obj.animating) return
       const rect = event.target.getBoundingClientRect()
@@ -248,5 +257,15 @@ export default {
 
   .sliding-text__char-sub_right {
     transform: translateX(120%);
+  }
+
+  @media (max-width: 1000px) {
+    .start__text-desc {
+      font-size: 2rem;
+    }
+
+    .start__bottom-text {
+      font-size: 1.5rem;
+    }
   }
 </style>>

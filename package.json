@@ -13,7 +13,9 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/device": "^1.2.7",
     "gsap": "^3.2.6",
+    "mobile-device-detect": "^0.3.3",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "simplebar-vue": "^1.4.0",

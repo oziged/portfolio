@@ -14,6 +14,11 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Cormorant+Garamond:wght@300&family=Playfair+Display:wght@600&display=swap' }
     ]
   },
+
+  modules: [
+    '@nuxtjs/device',
+  ],
+
   /*
   ** Customize the progress bar color
   */

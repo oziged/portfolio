@@ -38,6 +38,17 @@ export default {
   },
 
 
+  watch: {
+    '$store.state.global.menuIsOpened': function(next, prev) {
+      if (next) {
+        gsap.to('.line-anim', {x: '300%', autoAlpha: 0, ease: 'power3.inOut'})
+      } else {
+        gsap.to('.line-anim', {x: '0', autoAlpha: 1, ease: 'power3.inOut'})
+      }
+    }
+  },
+
+
   mounted() {
     this.firstMount = true
   },
@@ -57,12 +68,8 @@ export default {
     toggleMenu() {
       if (!this.$store.state.global.menuIsOpened) {
         this.$store.commit('global/SET_STATE', {key: 'menuIsOpened', value: true})
-        gsap.to('.line-anim', {x: '300%', autoAlpha: 0, ease: 'power3.inOut'})
-        this.updateMenu('openMenu')
       } else {
         this.$store.commit('global/SET_STATE', {key: 'menuIsOpened', value: false})
-        gsap.to('.line-anim', {x: '0', autoAlpha: 1, ease: 'power3.inOut'})
-        this.updateMenu('closeMenu')
       }
     }
   }

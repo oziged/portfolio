@@ -45,6 +45,7 @@
 
       <slider-line-nav
         class="works__slider-nav"
+        ref="slider-nav"
         :length=projects.length
         :currentIndex="currentSlide"
         @slideChange="index => changeSlide('goto', index)"
@@ -76,6 +77,7 @@ export default {
     return {
       currentSlide: 0,
       sliderIsAnimating: true,
+      enterTL: null,
       touch: {
         start: {x: 0, y: 0},
         end: {x: 0, y: 0}
@@ -109,32 +111,22 @@ export default {
 
 
   async beforeRouteLeave (to, from, next) {
-    // if (to.params.instantly) next()
-    // else {
-    //   this.anim.leave.TL.play()
-    //   setTimeout(() => {
-    //     next()
-    //   }, this.anim.leave.duration * 1000);
-    // }
-      await gsap.to('.works', {scale: .5, autoAlpha: 0, ease: 'power3.inOut', duration: 1.5})
-      next()
+    gsap.to([this.$refs.slideshow.$el, this.$refs['slider-nav'].$el], {autoAlpha: 0})
+    this.enterTL.pause()
+    await this.leaveAnim()
+    next()
   },
 
 
   mounted() {
-    window.l = async () => {
-      await gsap.to('.works', {scale: .5, autoAlpha: 0, ease: 'power3.inOut', duration: 1.5})
-    }
   },
 
 
   methods: {
     async changeSlide(type, index) {
-      console.log(this.sliderIsAnimating)
       if (this.sliderIsAnimating) return
       this.sliderIsAnimating = true
       await this.leaveAnim()
-      this.$refs.slideshow.next()
       this.updateCurrentSlide(type, index)
       await this.$nextTick()
       await this.appearAnim()
@@ -144,17 +136,28 @@ export default {
     updateCurrentSlide(type, index) {
       let limit = this.projects.length-1
       if (type == 'next') {
-        if (this.currentSlide == limit) this.currentSlide = 0
-        else this.currentSlide += 1
+        if (this.currentSlide == limit) {
+          this.currentSlide = 0
+          this.$refs.slideshow.goTo(0)
+        } else {
+          this.currentSlide += 1
+          this.$refs.slideshow.next()
+        }
       }
 
       if (type == 'prev') {
-        if (this.currentSlide == 0) this.currentSlide = limit
-        else this.currentSlide -= 1
+        if (this.currentSlide == 0) {
+          this.currentSlide = limit
+          this.$refs.slideshow.goTo(limit)
+        } else {
+          this.currentSlide -= 1
+          this.$refs.slideshow.previous()
+        }
       }
 
       if (type == 'goto' && index >= 0 && index <= limit) {
         this.currentSlide = index
+        this.$refs.slideshow.goTo(index)
       }
     },
 
@@ -189,24 +192,25 @@ export default {
     },
 
     async sliderOnload() {
-      let enterTL = gsap.timeline()
+      this.enterTL = gsap.timeline()
 
       this.$refs['title-words'].forEach(word => {
-        enterTL.from(word.querySelectorAll('.works__slider-title-char'), {y: 60, stagger: .025, ease: 'power2.inOut', duration: 1.5}, 0)
-        enterTL.to(word.querySelectorAll('.works__slider-title-char'), {autoAlpha: 1, delay: .5, duration: 1.5}, 0)
+        this.enterTL.from(word.querySelectorAll('.works__slider-title-char'), {y: 60, stagger: .025, ease: 'power2.inOut', duration: 1.5}, 0)
+        this.enterTL.to(word.querySelectorAll('.works__slider-title-char'), {autoAlpha: 1, delay: .5, duration: 1.5}, 0)
       })
 
-      enterTL.set('.works__slider-nav', {autoAlpha: 1}, 0)
-      enterTL.from('.slider-nav__item', {x: -30, autoAlpha: 0, stagger: .2, ease: 'power1.inOut', duration: 1.5}, .5)
-      enterTL.from('.works__slider-image', {x: -100, autoAlpha: 0, duration: 1.5, ease: 'power3.inOut'}, 0)
-      enterTL.to('.works__discover-char', {autoAlpha: 1, stagger: -.08, ease: 'power1.inOut', duration: 1.5}, 0)
-      enterTL.to('.works__slider-desc-char', {autoAlpha: 1, stagger: .08, ease: 'power1.inOut', delay: .5, duration: 1.5}, 0)
+      this.enterTL.set('.works__slider-nav', {autoAlpha: 1}, 0)
+      this.enterTL.from('.slider-nav__item', {x: -30, autoAlpha: 0, stagger: .2, ease: 'power1.inOut', duration: 1.5}, .5)
+      this.enterTL.from('.works__slider-image', {x: -100, autoAlpha: 0, duration: 1.5, ease: 'power3.inOut'}, 0)
+      this.enterTL.to('.works__discover-char', {autoAlpha: 1, stagger: -.08, ease: 'power1.inOut', duration: 1.5}, 0)
+      this.enterTL.to('.works__slider-desc-char', {autoAlpha: 1, stagger: .08, ease: 'power1.inOut', delay: .5, duration: 1.5}, 0)
 
-      await enterTL
+      await this.enterTL
       this.sliderIsAnimating = false
     },
 
     worksMouseWheel(event) {
+      console.log(event.deltaY > 0)
       if (event.deltaY > 0) this.changeSlide('next')
       else this.changeSlide('prev')
     },

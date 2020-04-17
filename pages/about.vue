@@ -31,13 +31,13 @@
         />
       </div>
       <div class="about__story" ref="about-story">
-        <p class="about__story-p" ref="about-p-1" v-on-appear="() => bottomRevealTween($refs['about-p-1'], {duration: 2})">Hi, how are you?</p>
-        <p class="about__story-p" ref="about-p-2" v-on-appear="() => bottomRevealTween($refs['about-p-2'], {duration: 2})">I’m a multidisciplinary designer from New Zealand and currently based in Berlin, Germany.</p>
-        <p class="about__story-p" ref="about-p-3" v-on-appear="() => bottomRevealTween($refs['about-p-3'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-4" v-on-appear="() => bottomRevealTween($refs['about-p-4'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-5" v-on-appear="() => bottomRevealTween($refs['about-p-5'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-6" v-on-appear="() => bottomRevealTween($refs['about-p-6'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-7" v-on-appear="() => bottomRevealTween($refs['about-p-7'], {duration: 2})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-1" v-on-appear="() => bottomRevealTween($refs['about-p-1'], {duration: 1.5, skewY: 2.5})">Hi, how are you?</p>
+        <p class="about__story-p" ref="about-p-2" v-on-appear="() => bottomRevealTween($refs['about-p-2'], {duration: 1.5, skewY: 2.5})">I’m a multidisciplinary designer from New Zealand and currently based in Berlin, Germany.</p>
+        <p class="about__story-p" ref="about-p-3" v-on-appear="() => bottomRevealTween($refs['about-p-3'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-4" v-on-appear="() => bottomRevealTween($refs['about-p-4'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-5" v-on-appear="() => bottomRevealTween($refs['about-p-5'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-6" v-on-appear="() => bottomRevealTween($refs['about-p-6'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-7" v-on-appear="() => bottomRevealTween($refs['about-p-7'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
       </div>
     </div>
   </div>
@@ -75,6 +75,7 @@ export default {
     return {
       title: ['Front-end', 'Developer'],
       heroPadding: 0,
+      leaveTL: null,
       gsap: {
         heroPreset: {
           stagger: .01,
@@ -110,10 +111,24 @@ export default {
 
   async mounted() {
     this.updateHeroPadding()
+    this.fillTimelines()
+  },
+
+
+  async beforeRouteLeave (to, from, next) {
+    await this.leaveTL.play(0)
+    next()
   },
 
 
   methods: {
+    fillTimelines() {
+      this.leaveTL = gsap.timeline({paused: true})
+
+      this.leaveTL
+        .to('.about__hero, .about__contact-block, .about__story, .about__tech', {autoAlpha: 0, y: 100, stagger: .05})
+    },
+
     charLeaveAnim(event) {
       gsap.to(event.target, {autoAlpha: 0, duration: .2, ease: 'power3.inOut'})
       gsap.to(event.target, {autoAlpha: 0, duration: .8, delay: .2})
@@ -125,15 +140,14 @@ export default {
     },
 
     bottomRevealTween(target, {...tweenParams}) {
-      return gsap.from(target, {y: 50, autoAlpha: 0, ease: 'power3.inOut', paused: true,  ...tweenParams})
-    }
+      return gsap.from(target, {y: 50, autoAlpha: 0, ease: 'power3.out', paused: true,  ...tweenParams})
+    },
   },
 }
 </script>
 
 <style lang="scss">
   .about {
-    overflow: hidden;
   }
 
   .about__container {
@@ -142,7 +156,7 @@ export default {
   }
 
   .about__hero {
-    padding-bottom: 20vh;
+    margin-bottom: 20vh;
     &-char {
       display: inline-block;
       will-change: transform;
@@ -187,5 +201,42 @@ export default {
 
   .about__tech {
     padding: 7rem 0;
+  }
+
+  @media (max-width: 1100px) {
+    .about__container {
+      padding: 0 5rem;
+    }
+
+    .about__contact-block {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 550px) {
+    .about__content {
+      font-size: 2rem;
+    }
+
+    .about__container {
+      flex-direction: column;
+    }
+
+    .about__contact-block {
+      margin-bottom: 5rem;
+      width: 100%;
+    }
+
+    .about__hero-title {
+      font-size: 5rem;
+    }
+
+    .about__hero {
+      margin-bottom: 100px;
+    }
+
+    .about__tech {
+      padding: 3rem 0;
+    }
   }
 </style>

@@ -10,7 +10,7 @@
           class="app-menu__nav-item"
           @mouseenter.native="navItemMouseEnter"
           @mouseleave.native="navItemMouseLeave"
-          @click.native="closeMenu"
+          @click.native="navItemClick"
         >
           {{ item.name }}
           <span class="app-menu__nav-item-subtext">{{ item.name }}</span>
@@ -47,6 +47,17 @@ export default {
       instantSkewX: 0,
       delayedSkewX: 0,
       listeners: []
+    }
+  },
+
+
+  watch: {
+    '$store.state.global.menuIsOpened': function(next, prev) {
+      if (next) {
+        this.openMenu()
+      } else {
+        this.closeMenu()
+      }
     }
   },
 
@@ -98,14 +109,16 @@ export default {
       this.updateCursor('enableCircle')
     },
 
+    navItemClick() {
+      this.$store.commit('global/SET_STATE', {key: 'menuIsOpened', value: false})
+    },
+
     openMenu() {
       this.anim.reveal.TL.timeScale(1).play()
-      this.$store.commit('global/SET_STATE', {key: 'menuIsOpened', value: true})
     },
 
     closeMenu() {
       this.anim.reveal.TL.timeScale(1.5).reverse()
-      this.$store.commit('global/SET_STATE', {key: 'menuIsOpened', value: false})
     }
   },
 }

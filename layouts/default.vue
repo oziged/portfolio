@@ -2,7 +2,10 @@
   <simplebar class="simplebar-fullscreen" style="color: white">
     <nuxt style=""/>
     <app-header/>
-    <app-cursor ref="cursor"/>
+    <app-cursor
+      v-if="!$device.isMobile"
+      ref="cursor"
+    />
     <app-menu ref="menu"/>
   </simplebar>
 </template>
@@ -33,6 +36,7 @@ export default {
 
   methods: {
     updateCursor() {
+      if (this.$device.isMobile) return
       [].forEach.call(arguments, name => this.$refs.cursor[name]())
     },
 

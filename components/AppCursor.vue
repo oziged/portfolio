@@ -100,7 +100,7 @@ export default {
     },
 
     unScalePoint() {
-      gsap.to(this.$refs['cursor-point'], {scale: 1})
+      gsap.to(this.$refs['cursor-point'], {scale: 1, clearProps: 'all'})
     },
 
     enableRedEffect() {
