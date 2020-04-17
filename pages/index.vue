@@ -36,7 +36,6 @@
     </h4>
 
     <WebGLBackground
-      v-if="!$device.isMobile"
       class="start__bg"
       :uTimeScale="bgSpeed"
     />
@@ -101,7 +100,6 @@ export default {
 
 
   methods: {
-    test(s) {console.log(s)},
     charMouseLeave(event, obj) {
       if (obj.animating) return
       const rect = event.target.getBoundingClientRect()
@@ -179,6 +177,16 @@ export default {
     height: 100vh;
   }
 
+  .start__bg-mobile {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+  }
+
   .bg-overlay, .fr-overlay {
     position: fixed;
     pointer-events: none;
@@ -207,9 +215,8 @@ export default {
     font-family: 'Playfair Display', serif;
     letter-spacing: .1rem;
     font-size: 3rem;
-    width: 200%;
-    text-align: center;
-    transform: translateX(-25%);
+    display: flex;
+    justify-content: center;
   }
 
   .start__text-desc {

@@ -1,7 +1,9 @@
 <template>
   <transition name="fade">
     <header v-if="headerIsVisible && firstMount" class="app-header container">
-      <div class="logo-text">drvnk.</div>
+      <nuxt-link to="/">
+        <span class="logo-text">drvnk.</span>
+      </nuxt-link>
       <div
         class="burger"
         ref="burger"
