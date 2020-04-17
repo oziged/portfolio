@@ -7,6 +7,7 @@
       ref="cursor"
     />
     <app-menu ref="menu"/>
+    <app-loader v-if="isLoading" ref="app-loader"/>
   </simplebar>
 </template>
 
@@ -14,14 +15,16 @@
 import AppCursor from '@/components/AppCursor'
 import AppHeader from '@/components/AppHeader'
 import AppMenu from '@/components/AppMenu/AppMenu'
+import AppLoader from '@/components/AppLoader'
 import simplebar from 'simplebar-vue';
 
 export default {
-  components: {AppCursor, AppHeader, AppMenu, simplebar},
+  components: {AppCursor, AppHeader, AppMenu, AppLoader, simplebar},
 
 
   data() {
     return {
+      isLoading: true
     }
   },
 
@@ -31,6 +34,12 @@ export default {
       updateCursor: this.updateCursor,
       updateMenu: this.updateMenu
     }
+  },
+
+
+  async mounted() {
+    await this.$refs['app-loader'].revealAnim()
+    this.isLoading = false
   },
 
 

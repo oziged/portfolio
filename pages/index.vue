@@ -5,10 +5,11 @@
     @mouseup="animatePageEnter"
     @touchstart="animatePageLeave"
     @touchend="animatePageEnter"
+    @selectstart.prevent
   >
     <div class="container start__container">
       <div class="start__text">
-        <h1 class="sliding-text start__text-title" @selectstart.prevent>
+        <h1 class="sliding-text start__text-title">
           <span class="sliding-text__char-wrapper"
             v-for="(item, index) in title"
             :key="index"

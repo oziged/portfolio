@@ -119,6 +119,7 @@ export default {
 
 
   mounted() {
+    this.fillTimelines()
   },
 
 
@@ -192,20 +193,7 @@ export default {
     },
 
     async sliderOnload() {
-      this.enterTL = gsap.timeline()
-
-      this.$refs['title-words'].forEach(word => {
-        this.enterTL.from(word.querySelectorAll('.works__slider-title-char'), {y: 60, stagger: .025, ease: 'power2.inOut', duration: 1.5}, 0)
-        this.enterTL.to(word.querySelectorAll('.works__slider-title-char'), {autoAlpha: 1, delay: .5, duration: 1.5}, 0)
-      })
-
-      this.enterTL.set('.works__slider-nav', {autoAlpha: 1}, 0)
-      this.enterTL.from('.slider-nav__item', {x: -30, autoAlpha: 0, stagger: .2, ease: 'power1.inOut', duration: 1.5}, .5)
-      this.enterTL.from('.works__slider-image', {x: -100, autoAlpha: 0, duration: 1.5, ease: 'power3.inOut'}, 0)
-      this.enterTL.to('.works__discover-char', {autoAlpha: 1, stagger: -.08, ease: 'power1.inOut', duration: 1.5}, 0)
-      this.enterTL.to('.works__slider-desc-char', {autoAlpha: 1, stagger: .08, ease: 'power1.inOut', delay: .5, duration: 1.5}, 0)
-
-      await this.enterTL
+      await this.enterTL.restart()
       this.sliderIsAnimating = false
     },
 
@@ -256,6 +244,21 @@ export default {
 
     discoverMouseLeave() {
       this.updateCursor('disablePulse', 'enableCircle')
+    },
+
+    fillTimelines() {
+      this.enterTL = gsap.timeline({paused: true})
+
+      this.$refs['title-words'].forEach(word => {
+        this.enterTL.from(word.querySelectorAll('.works__slider-title-char'), {y: 60, stagger: .025, ease: 'power2.inOut', duration: 1.5}, 0)
+        this.enterTL.to(word.querySelectorAll('.works__slider-title-char'), {autoAlpha: 1, delay: .5, duration: 1.5}, 0)
+      })
+
+      this.enterTL.set('.works__slider-nav', {autoAlpha: 1}, 0)
+      this.enterTL.from('.slider-nav__item', {x: -30, autoAlpha: 0, stagger: .2, ease: 'power1.inOut', duration: 1.5}, .5)
+      this.enterTL.from('.works__slider-image', {x: -100, autoAlpha: 0, duration: 1.5, ease: 'power3.inOut'}, 0)
+      this.enterTL.to('.works__discover-char', {autoAlpha: 1, stagger: -.08, ease: 'power1.inOut', duration: 1.5}, 0)
+      this.enterTL.to('.works__slider-desc-char', {autoAlpha: 1, stagger: .08, ease: 'power1.inOut', delay: .5, duration: 1.5}, 0)
     }
   }
 }

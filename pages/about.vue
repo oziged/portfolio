@@ -126,7 +126,7 @@ export default {
       this.leaveTL = gsap.timeline({paused: true})
 
       this.leaveTL
-        .to('.about__hero, .about__contact-block, .about__story, .about__tech', {autoAlpha: 0, y: 100, stagger: .05})
+        .to('.about__hero, .about__contact-block, .about__story, .about__tech', {autoAlpha: 0, y: 100, stagger: .05, ease: 'power3.inOut', duration: 1.5})
     },
 
     charLeaveAnim(event) {
