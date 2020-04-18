@@ -201,6 +201,7 @@ export default {
 
   .about__tech {
     padding: 7rem 0;
+    overflow: hidden;
   }
 
   @media (max-width: 1100px) {

@@ -1,5 +1,8 @@
 <template>
-  <simplebar class="simplebar-fullscreen" style="color: white">
+  <simplebar
+    class="simplebar-fullscreen"
+    style="color: white"
+  >
     <nuxt style=""/>
     <app-header/>
     <app-cursor
