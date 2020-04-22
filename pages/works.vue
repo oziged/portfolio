@@ -7,7 +7,13 @@
     @touchend="worksTouchEnd"
   >
     <div class="container works__container">
-      <div class="works__slider-image">
+      <a
+        class="works__slider-image"
+        @mouseenter="sliderImageMouseEnter"
+        @mouseleave="sliderImageMouseLeave"
+        :href="projects[currentSlide].url"
+        target="_blank"
+      >
         <client-only>
           <vue-displacement-slideshow
             :images="imagesArray"
@@ -41,7 +47,7 @@
             <span class="works__slider-desc-char" v-for="(char, index) in word" :key="index" ref="desc-chars">{{char}}</span>
           </span>
         </div>
-      </div>
+      </a>
 
       <slider-line-nav
         class="works__slider-nav"
@@ -51,13 +57,15 @@
         @slideChange="index => changeSlide('goto', index)"
       />
 
-      <div
+      <a
         class="works__discover"
         @mouseenter="discoverMouseEnter"
         @mouseleave="discoverMouseLeave"
+        :href="projects[currentSlide].url"
+        target="_blank"
       >
         <span class="works__discover-char" v-for="(char, index) in 'Discover'.split('')" :key="index">{{ char }}</span>
-      </div>
+      </a>
     </div>
   </section>
 </template>
@@ -84,20 +92,35 @@ export default {
       },
       projects: [
         {
+          name: ['Travel', 'App'],
+          desc: ['Vue.js'],
+          img: require('@/assets/images/projects/travel/preview.png'),
+          url: 'https://oziged.github.io/projects/vue-app/'
+        },
+        {
           name: ['Youtube', 'Random'],
-          desc: ['some', 'desc'],
-          img: require('@/assets/images/projects/yt/preview.jpg')
+          desc: ['Vue.js', ' + ', 'Nuxt', ' + ', 'GSAP'],
+          img: require('@/assets/images/projects/yt/preview.png'),
+          url: 'https://yt-random.herokuapp.com/'
+        },
+        {
+          name: ['Company', 'Layout'],
+          desc: ['JS', ' + ', 'GSAP'],
+          img: require('@/assets/images/projects/ninja/preview.png'),
+          url: 'http://ninja-layout.herokuapp.com/'
         },
         {
           name: ['Sofa', 'Selector'],
-          desc: ['some', 'desc2'],
-          img: require('@/assets/images/projects/three-js/preview.png')
+          desc: ['Vue.js', ' + ', 'THREE.js '],
+          img: require('@/assets/images/projects/three-js/preview.png'),
+          url: 'http://three-js-interier.herokuapp.com/'
         },
         {
-          name: ['Youtube', 'Random'],
-          desc: ['some', 'desc'],
-          img: require('@/assets/images/projects/yt/preview.jpg')
-        }
+          name: ['Simple', 'TodoApp'],
+          desc: ['Vue.js'],
+          img: require('@/assets/images/projects/todo/preview.png'),
+          url: 'http://simple-todo-eu.herokuapp.com/'
+        },
       ],
     }
   },
@@ -198,7 +221,6 @@ export default {
     },
 
     worksMouseWheel(event) {
-      console.log(event.deltaY > 0)
       if (event.deltaY > 0) this.changeSlide('next')
       else this.changeSlide('prev')
     },
@@ -236,6 +258,16 @@ export default {
 
       if (biggerDiff < 20) this.changeSlide('next')
       if (biggerDiff > 20) this.changeSlide('prev')
+    },
+
+    sliderImageMouseEnter() {
+      this.updateCursor('enableRedEffect')
+      this.updateCursor('disableCircle')
+    },
+
+    sliderImageMouseLeave() {
+      this.updateCursor('disableRedEffect')
+      this.updateCursor('enableCircle')
     },
 
     discoverMouseEnter() {

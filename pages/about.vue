@@ -32,12 +32,20 @@
       </div>
       <div class="about__story" ref="about-story">
         <p class="about__story-p" ref="about-p-1" v-on-appear="() => bottomRevealTween($refs['about-p-1'], {duration: 1.5, skewY: 2.5})">Hi, how are you?</p>
-        <p class="about__story-p" ref="about-p-2" v-on-appear="() => bottomRevealTween($refs['about-p-2'], {duration: 1.5, skewY: 2.5})">I’m a multidisciplinary designer from New Zealand and currently based in Berlin, Germany.</p>
-        <p class="about__story-p" ref="about-p-3" v-on-appear="() => bottomRevealTween($refs['about-p-3'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-4" v-on-appear="() => bottomRevealTween($refs['about-p-4'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-5" v-on-appear="() => bottomRevealTween($refs['about-p-5'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-6" v-on-appear="() => bottomRevealTween($refs['about-p-6'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
-        <p class="about__story-p" ref="about-p-7" v-on-appear="() => bottomRevealTween($refs['about-p-7'], {duration: 1.5, skewY: 2.5})">My expertise is art direction, animation and anything interactive. I’ve had over 4 years industry experience, from working with startups, agencies and international clients from concept to final deliverables.</p>
+        <p class="about__story-p" ref="about-p-2" v-on-appear="() => bottomRevealTween($refs['about-p-2'], {duration: 1.5, skewY: 2.5})">
+          I am a web developer from Zaporizhia, Ukraine.</p>
+        <p class="about__story-p" ref="about-p-3" v-on-appear="() => bottomRevealTween($refs['about-p-3'], {duration: 1.5, skewY: 2.5})">
+          I have a year of development experience, during which I participated in the creation of web applications at different stages.</p>
+        <p class="about__story-p" ref="about-p-4" v-on-appear="() => bottomRevealTween($refs['about-p-4'], {duration: 1.5, skewY: 2.5})">
+          During this time, from the frontend part, I was creating applications based on Vue.js and Nuxt, doing responsive layout with different animations and interactive elements.</p>
+        <p class="about__story-p" ref="about-p-5" v-on-appear="() => bottomRevealTween($refs['about-p-5'], {duration: 1.5, skewY: 2.5})">
+          From the backend, I was adding new features to the existing application based on Ruby on Rails.</p>
+        <p class="about__story-p" ref="about-p-6" v-on-appear="() => bottomRevealTween($refs['about-p-6'], {duration: 1.5, skewY: 2.5})">
+          At the moment, my main technologies are HTML/CSS/JS(Vue.js/Nuxt)/RoR, but in the future I would also like to learn React and Node.js.</p>
+        <p class="about__story-p" ref="about-p-7" v-on-appear="() => bottomRevealTween($refs['about-p-7'], {duration: 1.5, skewY: 2.5})">
+          Also, I really like different animations and if there is any opportunity to work with them, I definitely use it. For animations I use GSAP and THREE.js</p>
+        <p class="about__story-p" ref="about-p-7" v-on-appear="() => bottomRevealTween($refs['about-p-7'], {duration: 1.5, skewY: 2.5})">
+          Feel free to contact me, I’m open to any proposals or offers. I hope to see you soon.</p>
       </div>
     </div>
   </div>
@@ -50,9 +58,6 @@
       :key="index"
     />
   </div>
-  <footer class="about__footer">
-    <div class="container"></div>
-  </footer>
 </section>
 </template>
 
@@ -90,7 +95,7 @@ export default {
         direction: 'right'
       },
       {
-        text: 'RUBY - RUBY ON RAILS - LINUX - GITHUB',
+        text: 'RUBY - RUBY ON RAILS - LINUX - GITHUB - WEBPACK - REST API',
         direction: 'left'
       }
       ]

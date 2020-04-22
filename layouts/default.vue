@@ -40,9 +40,12 @@ export default {
   },
 
 
-  async mounted() {
-    await this.$refs['app-loader'].revealAnim()
-    this.isLoading = false
+  mounted() {
+    setTimeout(async () => {
+      await this.$refs['app-loader'].revealAnim()
+      this.isLoading = false
+    }, 1000);
+
   },
 
 

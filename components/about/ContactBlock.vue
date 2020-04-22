@@ -37,9 +37,11 @@ export default {
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       contactLinks: {
-        email: 'google.com',
-        github: 'github.com/oziged',
-        telegram: 't.me/eubarring'
+        resume: 'https://drive.google.com/file/d/1Ns_CSQugRMYZgc8_C_Ppos0fhcXZpwXt/view?usp=sharing',
+        email: 'https://mail.google.com/mail/?view=cm&fs=1&to=eugenedrvnk@gmail.com',
+        github: 'https://github.com/oziged',
+        telegram: 'https://t.me/eubarring',
+        linkedin: 'https://www.linkedin.com/in/eugenedrvnk/'
       },
     }
   },
@@ -73,7 +75,6 @@ export default {
 
   mounted() {
     this.updateTime()
-    console.log(this.date)
   },
 
 
